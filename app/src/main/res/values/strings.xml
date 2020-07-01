@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ImageGallery</string>
+    <string name="todo">TODO</string>
+    <string name="Load_Success">加載成功</string>
+</resources>
