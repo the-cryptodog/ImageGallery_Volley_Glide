@@ -48,19 +48,22 @@ public class MainActivity extends AppCompatActivity {
         url1 = "https://attach2.mobile01.com/images/touch/apple-touch-icon-180x180.png";
         url2 = "https://attach.mobile01.com/image/news/df34d40d00fc25f8edfc90cb883ba85b.jpg";
 
-        /*Volley往往要封裝成單例*/
-        RequestQueue queue = Volley.newRequestQueue(this);
-        loadImage();
+
+        loadImageWithGlide(); //預載一張圖
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 /*畫面下拉便啟動(須額外設定關閉refresh狀態)*/
-                loadImage();
+                loadImageWithGlide();
             }
         });
 
+        /*此處為Volley自帶載入圖片之框架，然而通常使用第三方Glide功能也非常齊全*/
 
+//       //Volley往往要封裝成單例
+//       RequestQueue queue = Volley.newRequestQueue(this);
 //        ImageLoader imageLoader = new ImageLoader(queue, new ImageLoader.ImageCache() {
 //
 //            private LruCache<String,Bitmap> cache = new LruCache<>(50); // least recently used
@@ -90,12 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    void loadImage(){
+
+    //設定Glide載入圖片框架
+    void loadImageWithGlide(){
         //設定一個隨機的布林(50/50機率)來讀兩種圖
         Random random = new Random();
         String url = random.nextBoolean()? url1:url2;
 
-        //設定Glide載入圖片框架
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.ic_launcher_background)
